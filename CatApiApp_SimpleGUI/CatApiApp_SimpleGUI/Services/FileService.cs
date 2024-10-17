@@ -24,7 +24,19 @@ namespace CatApiApp_SimpleGUI.Services
         // Saves the specified content to a file at the specified path.
         public void SaveToFile(string filePath, string content)
         {
-            // Code for saving content to the file would go here.
+            // Code for saving content to the file
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine(content);
+                }
+                System.Console.WriteLine("Data saved to file successfully!");
+            }
+            catch (IOException ex)
+            {
+                System.Console.WriteLine($"Failed to save data: {ex.Message}");
+            }
         }
 
         // Asynchronously reads all content from a file at the specified path and returns it as a string.
