@@ -1,0 +1,218 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests.csproj": {}
+  },
+  "projects": {
+    "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests.csproj",
+        "projectName": "CatApiApp_SimpleGUI.Tests",
+        "projectPath": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests.csproj",
+        "packagesPath": "/Users/neilfabiao/.nuget/packages/",
+        "outputPath": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI.Tests/CatApiApp_SimpleGUI.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/neilfabiao/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI.csproj": {
+                "projectPath": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.1.4, )"
+            },
+            "Avalonia.ReactiveUI": {
+              "target": "Package",
+              "version": "[11.1.4, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI.csproj",
+        "projectName": "CatApiApp_SimpleGUI",
+        "projectPath": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI.csproj",
+        "packagesPath": "/Users/neilfabiao/.nuget/packages/",
+        "outputPath": "/Users/neilfabiao/Documents/GitHub/Dont_Touch_Friday/CatApiApp_SimpleGUI_Final/CatApiApp_SimpleGUI/CatApiApp_SimpleGUI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/neilfabiao/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Diagnostics": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Fonts.Inter": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.ReactiveUI": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Skia": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.3.2, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

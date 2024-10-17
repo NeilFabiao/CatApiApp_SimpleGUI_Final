@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatApiApp_SimpleGUI.Tests", "CatApiApp_SimpleGUI.Tests", "{8DED3DE7-5D47-44E6-B766-C1D14AD559BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatApiApp_SimpleGUI.Tests", "CatApiApp_SimpleGUI.Tests\CatApiApp_SimpleGUI.Tests\CatApiApp_SimpleGUI.Tests.csproj", "{811B74E8-B870-4469-9CE0-E9066839FDFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatApiApp_SimpleGUI", "CatApiApp_SimpleGUI", "{4C782986-5C7F-4EC9-8863-93037FBAEB14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatApiApp_SimpleGUI", "CatApiApp_SimpleGUI\CatApiApp_SimpleGUI\CatApiApp_SimpleGUI.csproj", "{36364E71-2198-4F00-8196-CD0513A8AC4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{811B74E8-B870-4469-9CE0-E9066839FDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811B74E8-B870-4469-9CE0-E9066839FDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811B74E8-B870-4469-9CE0-E9066839FDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811B74E8-B870-4469-9CE0-E9066839FDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36364E71-2198-4F00-8196-CD0513A8AC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36364E71-2198-4F00-8196-CD0513A8AC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36364E71-2198-4F00-8196-CD0513A8AC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36364E71-2198-4F00-8196-CD0513A8AC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{811B74E8-B870-4469-9CE0-E9066839FDFF} = {8DED3DE7-5D47-44E6-B766-C1D14AD559BE}
+		{36364E71-2198-4F00-8196-CD0513A8AC4C} = {4C782986-5C7F-4EC9-8863-93037FBAEB14}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {817DE401-7071-46BD-BC0E-E5A255939A36}
+	EndGlobalSection
+EndGlobal
