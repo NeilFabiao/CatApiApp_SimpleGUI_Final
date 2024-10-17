@@ -1,5 +1,4 @@
-// ViewModels/MainWindowViewModel.cs
-
+// File: ViewModels/MainWindowViewModel.cs
 // This file defines the MainWindowViewModel, which manages the user interface logic 
 // and data for the main window of the CatApiApp. It interacts with services to fetch cat data, 
 // store user interactions, and update the displayed information.
@@ -91,15 +90,19 @@ namespace CatApiApp_SimpleGUI.ViewModels
         public async Task<(string imageUrl, string catFact)> FetchCatDataAsync()
         {
             CatFact = "Fetching data..."; // Update the UI to indicate data is being fetched.
+            string catImage = string.Empty;
+            string catFact = string.Empty;
+                
             try
-            {
-                var catImage = await _catService.GetCatImageAsync();  // Fetches a cat image URL.
-                var catFact = await _catService.GetCatFactAsync();    // Fetches a cat fact.
+            {   
+                
+                catImage = await _catService.GetCatImageAsync();  // Fetches a cat image URL.
+                catFact = await _catService.GetCatFactAsync();    // Fetches a cat fact.
 
                 // Handle empty response.
                 if (string.IsNullOrEmpty(catFact))
                 {
-                    catFact = "No fact available.";
+                    catFact = "No fact available.";  // Set the fact to "No fact available." if the fact is empty.
                 }
 
                 var newCatData = new CatData
@@ -112,27 +115,31 @@ namespace CatApiApp_SimpleGUI.ViewModels
 
                 UpdateCatList(newCatData); // Update the UI with the new cat data.
 
-                return (catImage, catFact);
+                return (catImage, catFact);  // Return the image URL and fact.
             }
             catch (HttpRequestException ex)
             {
-                // Displays an error message if there's a problem with the HTTP request.
-                CatFact = $"Whoa there! It looks like we hit the limit for fetching cat data. Please try again in a few moments.\n\n" +
-                $"If the problem persists, please check your network connection or try again later. " +
-                $"Error Details: {ex.Message}";
-                return (string.Empty, string.Empty);
+                if (ex.Message.Contains("Malformed response"))
+                {
+                    CatFact = $"An error occurred: Malformed response"; // Specific error message for malformed response
+                }
+                else
+                {
+                    CatFact = $"Whoa there! It looks like we hit the limit for fetching cat data. Please try again in a few moments.\n\n" +
+                    $"If the problem persists, please check your network connection or try again later. " +
+                    $"Error Details: {ex.Message}";
+                }
+                return (catImage, string.Empty);  // Return an empty string for both image URL and fact in case of error.
             }
             catch (TaskCanceledException)
             {
-                // Handle task cancellation
                 CatFact = "The request was canceled. Please try again.";
-                return (string.Empty, string.Empty);
+                return (catImage, string.Empty);  // Return empty strings in case of cancellation.
             }
             catch (Exception ex)
             {
-                // Handles general exceptions and updates the UI with an error message.
                 CatFact = $"An error occurred: {ex.Message}";
-                return (string.Empty, string.Empty);
+                return (catImage, string.Empty);  // Return empty strings in case of any other exception.
             }
         }
 
