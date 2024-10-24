@@ -2,6 +2,19 @@
 
 This document outlines areas of improvement in **CatApiApp_SimpleGUI** with examples of code adjustments based on best practices in C# development, asynchronous programming, error handling, and architecture.
 
+--- 
+
+## Summary of Improvements
+
+- Use `ConfigureAwait(false)` to prevent deadlocks.
+- Provide better error handling based on HTTP status codes.
+- Add boundary checks for JSON array handling.
+- Register services as `Singleton` instead of `Transient`.
+- Use `ICommand` for handling UI events.
+- Introduce a service layer for better architecture in larger applications.
+- Handle HTTP statuses explicitly in requests.
+- Ensure proper setup and teardown in unit tests.
+
 ---
 
 ## 1. Deadlock and Asynchronous Code
@@ -322,15 +335,5 @@ By using **ICommand**, the event-handling logic is moved to the **ViewModel**, a
 
 ---
 
-## Summary of Improvements
-
-- Use `ConfigureAwait(false)` to prevent deadlocks.
-- Provide better error handling based on HTTP status codes.
-- Add boundary checks for JSON array handling.
-- Register services as `Singleton` instead of `Transient`.
-- Use `ICommand` for handling UI events.
-- Introduce a service layer for better architecture in larger applications.
-- Handle HTTP statuses explicitly in requests.
-- Ensure proper setup and teardown in unit tests.
 
 By implementing these improvements, the overall structure, maintainability, and error resilience of the application will be significantly enhanced.
