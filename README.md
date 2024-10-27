@@ -1,6 +1,6 @@
 # CatApiApp_SimpleGUI_Final
 
-**CatApiApp_SimpleGUI_Final** is a lightweight, cross-platform desktop application built with C# and Avalonia UI, designed to help developers learn the basics of C#. The app fetches random cat images and facts from **TheCatAPI** and **CatFactsAPI**, providing endless feline fun with a clean, simple interface.
+**CatApiApp_SimpleGUI_Final** is a lightweight, cross-platform desktop application built with C# and Avalonia UI, designed to help developers learn the basics of C#. The app fetches random cat images and facts from **TheCatAPI** and **CatFactsAPI**, providing fun with a clean, simple interface.
 
 Built using the robust **MVVM** (Model-View-ViewModel) architecture, this project ensures maintainability and scalability, while an extensive test suite, powered by **xUnit** and **Moq**, guarantees reliability and correctness of the app’s logic.
 
