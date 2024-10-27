@@ -1,11 +1,10 @@
-// Services/CatService.cs
-
-// This file defines the ICatService interface and its implementation, CatService, 
-// which provides methods for fetching cat images and facts, as well as retrieving image data as byte arrays.
-
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text.Json;
 using Newtonsoft.Json.Linq;
+using CatApiApp_SimpleGUI.Models; // Import the CatData model
 
 namespace CatApiApp_SimpleGUI.Services
 {
@@ -40,8 +39,38 @@ namespace CatApiApp_SimpleGUI.Services
             var response = await _httpClient.GetAsync(catImageUrl);
             response.EnsureSuccessStatusCode();
             string content = await response.Content.ReadAsStringAsync();
-            JArray json = JArray.Parse(content);
-            return json[0]["url"]?.ToString() ?? string.Empty; // Extracts and returns the URL of the cat image.
+
+            try
+            {
+                // Deserialize JSON array into a list of CatData objects
+                var catImages = JsonSerializer.Deserialize<List<CatData>>(content);
+
+                // Loop through each item and return the first valid ImageUrl
+                if (catImages != null)
+                {
+                    foreach (var catData in catImages)
+                    {
+                        if (!string.IsNullOrEmpty(catData.ImageUrl))
+                        {
+                            return catData.ImageUrl; // Return the first valid image URL
+                        }
+                    }
+                    // If catImages is not null but contains no valid ImageUrl
+                    return "No valid image URL found in the response.";
+                }
+                else
+                {
+                    // If catImages is null
+                    return "Failed to retrieve cat image data.";
+                }
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Deserialization error: {ex.Message}");
+            }
+
+            // Return an empty string if no valid image URL is found
+            return string.Empty;
         }
 
         // Asynchronously retrieves a random cat fact from an external API.
@@ -51,8 +80,29 @@ namespace CatApiApp_SimpleGUI.Services
             var response = await _httpClient.GetAsync(catFactUrl);
             response.EnsureSuccessStatusCode();
             string content = await response.Content.ReadAsStringAsync();
-            var json = JObject.Parse(content);
-            return json["fact"]?.ToString() ?? "No fact available."; // Extracts and returns the fact.
+
+            try
+            {
+                // Deserialize JSON content directly into a CatData object (not a list)
+                var catData = JsonSerializer.Deserialize<CatData>(content);
+
+                // Check if the fact is available and return it, otherwise return a fallback message
+                if (catData != null && !string.IsNullOrEmpty(catData.Fact))
+                {
+                    return catData.Fact;
+                }
+                else
+                {
+                    return "No valid fact found in the response.";
+                }
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Deserialization error: {ex.Message}");
+            }
+
+            // Return an empty string if deserialization fails or no valid fact is found
+            return string.Empty;
         }
 
         // Asynchronously fetches image data from the given image URL as a byte array.
