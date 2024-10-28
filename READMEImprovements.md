@@ -311,32 +311,11 @@ By using **ICommand**, the event-handling logic is moved to the **ViewModel**, a
 - **Improvements:**  
   The separation of unit and integration tests is good. Continue to mock dependencies and test each part of the application in isolation.
 
----
 
-## 11. HTTP Request Handling and Error Codes
-
-- **Current Status:**
-  - Error handling is based on generated error messages but doesn’t account for specific status codes.
-
-- **Improvements Needed:**
-  - **Example:** Handle each HTTP status code explicitly and provide feedback to users.
-    ```csharp
-    switch (response.StatusCode)
-    {
-        case HttpStatusCode.NotFound:
-            return "Not Found";
-        case HttpStatusCode.Unauthorized:
-            return "Unauthorized access";
-        case HttpStatusCode.InternalServerError:
-            return "Server Error";
-        default:
-            return "Unhandled status code";
-    }
-    ```
 
 ---
 
-## 12. Setup and Teardown in Tests
+## 11. Setup and Teardown in Tests
 
 - **Current Status:**
   - Tests use mocked services, but there’s no explicit setup/teardown method for test resources.
