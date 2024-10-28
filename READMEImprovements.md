@@ -2,41 +2,42 @@
 
 This document outlines areas of improvement in **CatApiApp_SimpleGUI** with examples of code adjustments based on best practices in C# development, asynchronous programming, error handling, and architecture.
 
---- 
+---
 
 ## Summary of Improvements
 
 - Use `ConfigureAwait(false)` to prevent deadlocks.
 - Provide better error handling based on HTTP status codes.
-- Add boundary checks for JSON array handling.
+- Use `objects` instead of `JSON arrays` for better data management.
 - Register services as `Singleton` instead of `Transient`.
 - Use `ICommand` for handling UI events.
 - Introduce a service layer for better architecture in larger applications.
-- Handle HTTP statuses explicitly in requests.
 - Ensure proper setup and teardown in unit tests.
 
 ---
 
-## 1. Deadlock and Asynchronous Code
+## Detailed Improvements
+
+### 1. Preventing Deadlocks with `ConfigureAwait(false)`
 
 - **Current Status:**
   - Asynchronous methods (`async`/`await`) are used properly in fetching cat data via `GetCatImageAsync()` and `GetCatFactAsync()`.
 
-- **Improvements Needed:**
-  - **Example:** Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context.
-    ```csharp
-    public async Task<string> GetCatImageAsync()
-    {
-        var response = await _httpClient.GetAsync("https://api.thecatapi.com/v1/images/search")
-                                         .ConfigureAwait(false); // Prevents deadlock
-        response.EnsureSuccessStatusCode();
-        string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-        var json = JArray.Parse(content);
-        return json[0]["url"]?.ToString() ?? string.Empty;
-    }
-    ```
+- **Improvement:**
+  - Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context.
 
----
+  ```csharp
+  public async Task<string> GetCatImageAsync()
+  {
+      var response = await _httpClient.GetAsync("https://api.thecatapi.com/v1/images/search")
+                                       .ConfigureAwait(false); // Prevents deadlock
+      response.EnsureSuccessStatusCode();
+      string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      var json = JArray.Parse(content);
+      return json[0]["url"]?.ToString() ?? string.Empty;
+  }
+
+
 
 ## 2. Error Handling with `EnsureSuccessStatusCode`
 
@@ -71,25 +72,57 @@ This document outlines areas of improvement in **CatApiApp_SimpleGUI** with exam
 
 ---
 
-## 3. Data Handling and Indexing
+## 3. Using Objects Instead of JSON Arrays for Data Management
 
 - **Current Status:**
   - The code assumes that the API response is always a valid JSON array (e.g., `json[0]["url"]`), which might cause issues if the API structure changes or returns unexpected data.
 
-- **Improvements Needed:**
-  - **Example:** Add boundary checks before accessing array elements.
-    ```csharp
-    string content = await response.Content.ReadAsStringAsync();
-    JArray json = JArray.Parse(content);
+- **Improvement:**
+  - Deserialize JSON into strongly-typed objects for better data management and flexibility.
 
-    if (json.Count > 0 && json[0]["url"] != null)
-    {
-        return json[0]["url"].ToString();
-    }
-    else
-    {
-        return "No cat image available.";
-    }
+  ```csharp
+  // Models/CatData.cs
+  using System;
+  using System.Text.Json.Serialization;
+
+  namespace CatApiApp_SimpleGUI.Models
+  {
+      public class CatData
+      {   
+          [JsonPropertyName("url")]
+          public string ImageUrl { get; set; } = string.Empty;
+
+          [JsonPropertyName("fact")]
+          public string Fact { get; set; } = string.Empty;
+
+          public string UserName { get; set; } = string.Empty;
+
+          public DateTime Timestamp { get; set; }
+      }
+  }
+  
+    ```csharp
+    // Services/CatService.cs
+  public async Task<string> GetCatImageAsync()
+  {
+      string catImageUrl = "https://api.thecatapi.com/v1/images/search";
+      var response = await _httpClient.GetAsync(catImageUrl);
+  
+      if (!response.IsSuccessStatusCode)
+      {
+          return HandleResponseStatus(response, "Cat image");
+      }
+  
+      string content = await response.Content.ReadAsStringAsync();
+      var catImages = JsonSerializer.Deserialize<List<CatData>>(content);
+  
+      if (catImages != null && catImages.Any())
+      {
+          return catImages.First().ImageUrl;
+      }
+  
+      return "No cat image available.";
+  }
     ```
 
 ---
