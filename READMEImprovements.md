@@ -30,6 +30,9 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
         response.EnsureSuccessStatusCode();
         string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         var json = JArray.Parse(content);
+        // Attempt to access the "url" property from the first item in the JSON array.
+        // If the "url" property exists and is not null, convert it to a string and return it.
+        // If "url" is missing or null, return an empty string instead
         return json[0]["url"]?.ToString() ?? string.Empty;
     }
     ```
