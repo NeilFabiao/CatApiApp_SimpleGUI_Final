@@ -83,23 +83,23 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
     var catImages = JsonSerializer.Deserialize<List<CatData>>(content);
 
     // Loop through each item in the list and return the first valid ImageUrl.
-                if (catImages != null)
-                {
-                    foreach (var catData in catImages)
-                    {
-                        if (!string.IsNullOrEmpty(catData.ImageUrl))
-                        {
-                            return catData.ImageUrl; // Return the first valid image URL
-                        }
-                    }
-                    // If catImages is not null but contains no valid ImageUrl
-                    return "No valid image URL found in the response.";
-                }
-                else
-                {
-                    // If catImages is null
-                    return "Failed to retrieve cat image data.";
-                }
+    if (catImages != null)
+    {
+        foreach (var catData in catImages)
+        {
+            if (!string.IsNullOrEmpty(catData.ImageUrl))
+            {
+                return catData.ImageUrl; // Return the first valid image URL
+            }
+        }
+        // If catImages is not null but contains no valid ImageUrl
+        return "No valid image URL found in the response.";
+    }
+    else
+    {
+        // If catImages is null
+        return "Failed to retrieve cat image data.";
+    }
     
     ```
 
