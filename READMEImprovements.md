@@ -20,7 +20,11 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 1. Preventing Deadlocks with `ConfigureAwait(false)`
 
-- **Improvement:** Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context. Only for coding Libraries and not UI dependent Apps
+- **Current Status:** 
+  - Asynchronous methods (`async`/`await`) are used correctly, but `ConfigureAwait(false)` is not applied, which could lead to deadlocks in UI applications when resuming on the main thread.
+
+- **Improvements Needed:** 
+  - Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context, especially useful in library code or non-UI-dependent applications.
 
     ```csharp
     public async Task<string> GetCatImageAsync()
@@ -36,7 +40,7 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
         var json = JArray.Parse(content);
         // Attempt to access the "url" property from the first item in the JSON array.
         // If the "url" property exists and is not null, convert it to a string and return it.
-        // If "url" is missing or null, return an empty string instead
+        // If "url" is missing or null, return an empty string instead.
         return json[0]["url"]?.ToString() ?? string.Empty;
     }
     ```
@@ -45,21 +49,31 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 2. Error Handling with `EnsureSuccessStatusCode`
 
-- **Improvement:** Instead of only using `EnsureSuccessStatusCode()`, check `IsSuccessStatusCode` to avoid exceptions and handle error cases gracefully.
+- **Current Status:**
+  - The `EnsureSuccessStatusCode()` method is used, but it throws exceptions on failure, and custom error messages are used generically like "Malformed response" and "Whoa there!".
+
+- **Improvements Needed:**
+  - Instead of using `EnsureSuccessStatusCode()` which throws exceptions, check the success of the request with `IsSuccessStatusCode` to handle error cases more gracefully.
 
     ```csharp
     public async Task<string> GetCatImageAsync()
     {
-        var response = await _httpClient.GetAsync("https://api.thecatapi.com/v1/images/search");
+        string catImageUrl = "https://api.thecatapi.com/v1/images/search";
 
+        var response = await _httpClient.GetAsync(catImageUrl);
+
+        // Extra security: check if the status code is successful before proceeding
         if (response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
             JArray json = JArray.Parse(content);
+
+            // Return the URL from the JSON response
             return json[0]["url"]?.ToString() ?? string.Empty;
         }
         else
         {
+            // Log the status code or perform some error handling if needed
             return $"Error: Received HTTP status code {response.StatusCode}";
         }
     }
@@ -69,7 +83,11 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 3. Using Objects Instead of JSON Arrays for Data Management
 
-- **Improvement:** Deserialize JSON into strongly-typed objects for better data management and flexibility.
+- **Current Status:**
+  - The code assumes that the API response is always a valid JSON array (e.g., `json[0]["url"]`), which might cause issues if the API structure changes or returns unexpected data.
+
+- **Improvements Needed:**
+  - Deserialize JSON into strongly-typed objects for better data management and flexibility.
 
     ```csharp
     // Models/CatData.cs
@@ -107,14 +125,17 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
         // If catImages is null
         return "Failed to retrieve cat image data.";
     }
-    
     ```
 
 ---
 
 ### 4. Dependency Injection: Singleton vs Transient
 
-- **Improvement:** Convert `Transient` services to `Singleton` for services that are stateless, improving performance and reducing memory overhead.
+- **Current Status:**
+  - Services such as `ICatService` and `IFileService` are currently registered as `Transient`, meaning new instances are created every time they are requested, which can be inefficient for stateless services.
+
+- **Improvements Needed:**
+  - Convert the `Transient` services to `Singleton` for stateless services, allowing only a single instance to be used throughout the application.
 
     ```csharp
     public static void ConfigureServices(IServiceCollection services)
@@ -128,7 +149,11 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 5. Event Handling with `ICommand`
 
-- **Improvement:** Move event-handling logic to the ViewModel and use **ICommand** for better separation of concerns.
+- **Current Status:**
+  - Currently, the event-handling logic for UI events (e.g., button click actions) is handled directly in the View, which couples the View and logic, making maintenance harder.
+
+- **Improvements Needed:**
+  - Move event-handling logic to the ViewModel and use `ICommand` for better separation of concerns and testability.
 
     ```csharp
     // ViewModel
@@ -150,7 +175,11 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 6. Service Layer for Improved Architecture
 
-- **Improvement:** Introduce a service layer to decouple the ViewModel from data-fetching logic.
+- **Current Status:**
+  - The ViewModel interacts directly with the data-fetching logic, making the code less modular and harder to maintain.
+
+- **Improvements Needed:**
+  - Introduce a service layer to decouple the ViewModel from the data-fetching logic, improving the architecture and maintainability.
 
     ```csharp
     public class CatServiceLayer
@@ -175,7 +204,11 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 7. Setup and Teardown in Unit Tests
 
-- **Improvement:** Implement setup and teardown in tests to manage resources efficiently.
+- **Current Status:**
+  - Tests are run without specific setup/teardown procedures, which may lead to unmanaged resources or repeated setup code within tests.
+
+- **Improvements Needed:**
+  - Implement setup and teardown methods in unit tests to manage resources efficiently, ensuring each test runs in a clean state.
 
     ```csharp
     public class MainWindowViewModelTests : IDisposable
