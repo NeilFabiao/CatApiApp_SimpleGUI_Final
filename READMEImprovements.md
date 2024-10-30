@@ -25,6 +25,10 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
     ```csharp
     public async Task<string> GetCatImageAsync()
     {
+        // Send an asynchronous GET request to the specified URL to fetch a random cat image.
+        // The ConfigureAwait(false) call is used to avoid capturing the current synchronization context,
+        // which helps prevent potential deadlocks in certain UI applications by allowing the continuation
+        // to run on a different thread if needed.
         var response = await _httpClient.GetAsync("https://api.thecatapi.com/v1/images/search")
                                          .ConfigureAwait(false); 
         response.EnsureSuccessStatusCode();
