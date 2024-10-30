@@ -20,7 +20,7 @@ This document outlines key improvement areas for **CatApiApp_SimpleGUI** with su
 
 ### 1. Preventing Deadlocks with `ConfigureAwait(false)`
 
-- **Improvement:** Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context.
+- **Improvement:** Use `ConfigureAwait(false)` to prevent deadlocks when the code doesn’t need to resume on the original synchronization context. Only for coding Libraries and not UI dependent Apps
 
     ```csharp
     public async Task<string> GetCatImageAsync()
