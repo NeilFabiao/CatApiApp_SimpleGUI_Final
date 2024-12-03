@@ -156,8 +156,12 @@ References
 7. [Test Filtering in .NET](https://docs.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests)
 8. [NUnit Documentation](https://nunit.org/docs/2.5/testRunner.html)
 9. Github and various resources online
-
 10. GPT-4-turbo, for guidance and assistance throughout the development process
 
+### Who do I talk to? ###
+
+* Repo owner Neil Fabião -> @neilfabiao ✌🏾
+
+![](https://komarev.com/ghpvc/?username=neildcatAPI&color=blue)
 
 
